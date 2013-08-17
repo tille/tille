@@ -1,0 +1,27 @@
+// Place all the styles related to the counter controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.record {
+  color: green;
+}
+
+.remove-item {
+  margin-left: 30px; 
+  margin-right: 10px; 
+  display: inline;
+}
+
+.add-item {
+  margin-left: 10px; 
+  display: inline;
+}
+
+ul {
+  margin-bottom: 20px;
+}
+
+.add-item-form {
+  display: none;
+  padding-left: 30px;
+}

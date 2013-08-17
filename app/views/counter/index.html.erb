@@ -1,0 +1,56 @@
+<div class="hero-unit">
+  <h1> !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! </h1>
+  <div class="muted">
+    it's your time to change the world - 
+    <a href="https://www.github.com/tille" class="muted">T!ll3</a>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="container">
+
+    <div class="row" style="padding-left: 55px;">
+      <div class="span12">
+        <h3>Today: <%= Item.today_time %>
+          <p class="muted" style="display: inline;">and</p>
+          This week: <%= Item.week_time %></h3>
+        </div>
+      </div><br><br>
+
+      <ul>
+        <% @items.each do |item| %>
+        <li>
+          <span>
+            <%= item.name %> &nbsp;/&nbsp; 
+            <a href="#" class="record"> Record Time </a>
+          </span>
+
+          <div class="progress progress-danger progress-striped">
+            <% week_progress = (item.calculate_week_time * 100) / item.estimated_time %>
+            <div class="bar" style="width: <%= week_progress %>%;"></div>
+          </div>
+        </li>
+        <% end %>
+      </ul>
+      
+      <div class="add-item-form">
+        <hr>
+        <h4 class="muted">New Item to be added</h4>
+        <%= form_tag '#', :method => :get, :remote => true do %>
+          <p>
+            <%= text_field_tag :name %>
+            <%= submit_tag "crear", :name => nil %>
+          </p>
+        <% end %>
+      </div>
+
+      <a class="muted remove-item" href="#">
+        Remove item <i class="icon-remove"></i>
+      </a>
+
+      <a class="muted add-item" href="#">
+        Add item <i class="icon-plus"></i>
+      </a>
+
+    </div>
+  </div>
