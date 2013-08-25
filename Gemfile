@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'pry'
+gem 'devise'
 gem 'sqlite3'
 gem 'less-rails'
 gem 'therubyracer'

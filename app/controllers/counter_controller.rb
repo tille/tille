@@ -1,23 +1,36 @@
 class CounterController < ApplicationController
+  # before_filter :authenticate_user!
 
   def index
     @items = Item.all
   end
 
   def record_time
+    @recording_item = RecordingItem.new( record_beginning_at: Time.now.utc, item_id: params[:item] )
+    if @recording_item.save
+      render text: "OK"
+    else
+      render text: @recording_item.errors.messages
+    end
   end
   
   def stop_recording
+    @item = Item.find params[:item]
+    @recording_item = @item.recording_item
+
+    if @recording_item
+      Commit.create( begin_time: @recording_item.record_beginning_at,
+                     end_time: Time.now,
+                     spent_time: Time.now.to_i - @recording_item.record_beginning_at.to_i,
+                     item_id: params[:item])
+      RecordingItem.find(@recording_item.id).destroy
+      render text: "OK"
+    else
+      render text: "this item is not commiting time in this momment!"
+    end
   end
   
   def commit_time
   end
   
-  def calculate_week_time item_id
-    actual_item = Item.find item_id
-    week_begin = DateTime.now.beginning_of_week
-    deadline = DateTime.now.end_of_week
-    actual_item.first.commits.where("end_time < ? and begin_time > ?", deadline, week_begin).sum(spent_time)
-  end
-
 end
