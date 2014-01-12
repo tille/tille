@@ -19,10 +19,12 @@ class CounterController < ApplicationController
     @recording_item = @item.recording_item
 
     if @recording_item
+      # si begin_time y end_time estan en dias diferentes crear 2 commits
       Commit.create( begin_time: @recording_item.record_beginning_at,
                      end_time: Time.now,
                      spent_time: Time.now.to_i - @recording_item.record_beginning_at.to_i,
-                     item_id: params[:item])
+                     item_id: params[:item] )
+
       RecordingItem.find(@recording_item.id).destroy
       render text: "OK"
     else

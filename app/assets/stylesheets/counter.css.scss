@@ -7,6 +7,11 @@
   color: green;
 }
 
+.time-info {
+  padding-left: 55px;
+  margin-bottom: 40px;
+}
+
 .remove-item {
   margin-left: 30px; 
   margin-right: 10px; 
@@ -35,6 +40,22 @@ ul {
 .stop-record {
   cursor:pointer;
   color: green;
+}
+
+.today-seconds {
+  display: none;
+}
+
+#week-seconds {
+  display: none;
+}
+
+#today-time {
+  display: inline;
+}
+
+#week-time {
+  display: inline;
 }
 
 .hide-item {

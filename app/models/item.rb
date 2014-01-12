@@ -15,35 +15,42 @@ class Item < ActiveRecord::Base
     if minutes+seconds == 0
       hours.to_s + "h"
     elsif seconds == 0
-      '%02dh%02dm' % [hours, minutes]
+      '%dh/%dm' % [hours, minutes]
     elsif minutes == 0
-      '%02dh%02ds' % [hours, seconds]      
+      '%dh/%ds' % [hours, seconds]      
     else
-      '%02dh%02dm%02ds' % [hours, minutes, seconds]
+      '%dh/%dm/%ds' % [hours, minutes, seconds]
     end
   end
   
-  # this method should return the number of seconds commited today for all the items
+  # this method should return the time commited today
   def self.today_time
-    beginning_in = DateTime.now.beginning_of_day
-    deadline = DateTime.now.end_of_day
-    seconds = Commit.where("end_time < ? and begin_time > ?", deadline, beginning_in).sum(:spent_time)
-    format_time seconds
-  end
-
-  # this method should return the number of seconds commited this week for all the items
-  def self.week_time
-    week_begin = DateTime.now.beginning_of_week
-    deadline = DateTime.now.end_of_week
-    seconds = Commit.where("end_time < ? and begin_time > ?", deadline, week_begin).sum(:spent_time)
-    format_time seconds
+    format_time today_seconds
   end
   
-  # this method should return the answer in minutes
-  def calculate_week_time
-    actual_item = Item.find self.id
+  # this method should return the seconds commited today
+  def self.today_seconds
+    beginning_in = DateTime.now.beginning_of_day
+    deadline     = DateTime.now.end_of_day
+    Commit.where("begin_time > ? and end_time < ?", beginning_in, deadline).sum(:spent_time)
+  end
+
+  # this method should return the time commited this week
+  def self.week_time
+    format_time week_seconds
+  end
+  
+  # this method should return the seconds commited this week
+  def self.week_seconds
     week_begin = DateTime.now.beginning_of_week
-    deadline = DateTime.now.end_of_week
-    actual_item.commits.where("end_time < ? and begin_time > ?", deadline, week_begin).sum(:spent_time)/60
+    deadline   = DateTime.now.end_of_week
+    Commit.where("end_time < ? and begin_time > ?", deadline, week_begin).sum(:spent_time)
+  end
+  
+  # this method return the seconds commited by self this week
+  def calculate_week_time
+    week_begin = DateTime.now.beginning_of_week
+    deadline   = DateTime.now.end_of_week
+    self.commits.where("begin_time > ? and end_time < ?", week_begin, deadline).sum(:spent_time)
   end
 end

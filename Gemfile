@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
+ruby '1.9.3'
 
 gem 'pry'
 gem 'devise'
-gem 'sqlite3'
+gem 'mysql2'
 gem 'less-rails'
 gem 'therubyracer'
 gem 'jquery-rails'
