@@ -1,8 +1,11 @@
 class Item < ActiveRecord::Base
   attr_accessible :estimated_time, :name
+
+  validates :name,           :presence => true
+  validates :estimated_time, :presence => true  
   
-  has_many :commits
-  has_one :recording_item
+  has_many   :commits
+  has_one    :recording_item
   belongs_to :user
   
   # should return an string with format #h#m#s (hours, minutes, seconds)  
@@ -23,15 +26,15 @@ class Item < ActiveRecord::Base
     end
   end
   
-  # this method should return the time commited today
+  # this method return the time commited today in format #h#m#s
   def self.today_time
     format_time today_seconds
   end
   
   # this method should return the seconds commited today
   def self.today_seconds
-    beginning_in = DateTime.now.beginning_of_day
-    deadline     = DateTime.now.end_of_day
+    beginning_in = DateTime.now.utc.beginning_of_day
+    deadline     = DateTime.now.utc.end_of_day
     Commit.where("begin_time > ? and end_time < ?", beginning_in, deadline).sum(:spent_time)
   end
 
@@ -42,8 +45,8 @@ class Item < ActiveRecord::Base
   
   # this method should return the seconds commited this week
   def self.week_seconds
-    week_begin = DateTime.now.beginning_of_week
-    deadline   = DateTime.now.end_of_week
+    week_begin = DateTime.now.utc.beginning_of_week
+    deadline   = DateTime.now.utc.end_of_week
     Commit.where("end_time < ? and begin_time > ?", deadline, week_begin).sum(:spent_time)
   end
   
