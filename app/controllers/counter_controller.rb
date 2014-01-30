@@ -65,8 +65,9 @@ class CounterController < ApplicationController
 
   def add_item
     @item = Item.new params[:item]
+
     if @item.valid?
-      params[:item][:estimated_time] = params[:item][:estimated_time]*60
+      @item.estimated_time = params[:item][:estimated_time].to_i*60
     end
 
     if @item.save
