@@ -1,16 +1,32 @@
 <div class="row-fluid">
   <div class="container">
 
+      <div class="messages-box">
+        <% if flash.now[:alert] %>
+          <p class="flash-error">
+            <ul>
+              <% flash.now[:alert].each do |msg| %>
+                <li class="alert alert-danger"><%= msg %></li>
+              <% end %>
+            </ul>
+          </p>
+        <% end %>
+
+        <% if flash.now[:notice] %>
+          <p class="alert alert-success"><%= flash.now[:notice] %></p>
+        <% end %>
+      </div>
+
       <div class="row time-info">
         <div class="span12">
 
           <div class="today-seconds">
-            <%= Item.today_seconds %> 
+            <%= Item.today_seconds %>
           </div>
-          <div id="week-seconds">
+          <div class="week-seconds">
             <%= Item.week_seconds %>
           </div>
-          
+
           <h3>
             Today: <p id="today-time"><%= Item.today_time %></p>
             <p class="muted" style="display: inline;">and</p>
@@ -22,7 +38,8 @@
 
       <ul>
         <% @items.each do |item| %>
-        <li>
+
+        <li id="item-container-<%= item.id %>">
           <div>
             <%= item.name %> &nbsp;/&nbsp;
 
@@ -33,39 +50,42 @@
               <a class="stop-record" id="stop-record-<%= item.id %>" style="display: none;"> Stop Recording </a>
               <a class="record" id="record-<%= item.id %>"> Record Time </a>
             <% end %>
-            
-            <a class="muted remove-item" href="#">
+
+            <a class="muted remove-item" id="remove-item-<%= item.id %>" href="#">
               Remove item <i class="icon-remove"></i>
             </a>
-            
           </div>
 
-          <div class="progress progress-danger progress-striped">
+          <div class="progress progress-success progress-striped">
             <% week_progress = (item.calculate_week_time * 100) / item.estimated_time %>
-            <div class="bar" style="width: <%= week_progress %>%;"></div>
+            <div class="bar bar-<%= item.id %>"
+                 data-commited-time=<%= item.calculate_week_time %>
+                 data-estimated-time=<%= item.estimated_time %>
+                 style="width: <%= week_progress %>%;">
+            </div>
           </div>
         </li>
         <% end %>
       </ul>
-      
+
+      <hr>
       <div class="add-item-form">
-        <hr>
-        <h4 class="muted">New Item to be added</h4>
-        <%= form_tag '#', :method => :get, :remote => true do %>
+        <h4 class="muted">Add a new item</h4>
+        <%= form_for :item, url: "/add_item" do |f| %>
           <p>
-            <%= text_field_tag :name, "name" %>
-            <%= text_field_tag :estimated_time, "Estimated time per week (in minutes)" %>
-            <%= submit_tag "crear", :name => nil %>
+            <%= f.text_field :name, placeholder: "Item name" %>
+            <%= f.text_field :estimated_time, placeholder: "Time per week (minutes)" %>
+            <%= f.submit "crear", class: "btn btn-inverse create-item-button" %>
           </p>
         <% end %>
+
+        <a class="muted hide-item" href="#">
+          Hide form <i class="icon-off"></i>
+        </a>
       </div>
 
       <a class="muted add-item" href="#">
         Add Item to the List <i class="icon-plus-sign"></i>
-      </a>
-
-      <a class="muted hide-item" href="#">
-        Hide form <i class="icon-off"></i>
       </a>
 
     </div>

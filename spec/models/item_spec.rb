@@ -30,6 +30,28 @@ describe Item do
     it "should return the seconds commited per day" do
       Item.today_seconds.should eq(60)
     end
+
+    it "should return the seconds commited per week" do
+      FactoryGirl.create(:commit, item_id: item.id)
+      Item.week_seconds.should eq(120)
+    end
+
+    it "should eturn the seconds commited by an item this week" do
+      item.calculate_week_time.should eq(60)
+    end
+
+    it "should return an string with format #h/#m/#s" do
+      Item.format_time(3960).should eq('1h/6m')
+    end
+
+    it "should return the time commited today in format #h/#m/#s" do
+      Item.today_time.should eq('0h/1m')
+    end
+
+    it "should return the time commited this week in format #h/#m/#s" do
+      FactoryGirl.create(:commit, item_id: item.id)
+      Item.today_time.should eq('0h/2m')
+    end
   end
 
   describe "relationships" do

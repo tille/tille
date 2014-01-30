@@ -13,13 +13,13 @@
 }
 
 .remove-item {
-  margin-left: 30px; 
-  margin-right: 10px; 
+  margin-left: 30px;
+  margin-right: 10px;
   display: inline;
 }
 
 .add-item {
-  margin-left: 30px; 
+  margin-left: 30px;
   display: inline;
 }
 
@@ -29,8 +29,8 @@ ul {
 
 .add-item-form {
   display: none;
-  padding-left: 30px;
-  margin-top: 30px;
+  padding: 0px 30px 0px 0px;
+  margin: 0px 0px 0px 30px;
 }
 
 .remove-item {
@@ -46,7 +46,7 @@ ul {
   display: none;
 }
 
-#week-seconds {
+.week-seconds {
   display: none;
 }
 
@@ -59,6 +59,10 @@ ul {
 }
 
 .hide-item {
-  display: none;
-  padding-left: 32px;
+  padding: 0px 0px 0px 0px;
+  margin:  0px 0px 0px 5px;
+}
+
+.create-item-button {
+  margin-top: -10px;
 }

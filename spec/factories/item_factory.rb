@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :item do
-    name "calculoIII"
+    sequence(:name) { |n| "calculo#{n}" }
     estimated_time 240
   end	
 end
