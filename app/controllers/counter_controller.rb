@@ -56,7 +56,7 @@ class CounterController < ApplicationController
   def remove_item
     item_id = params[:item]
 
-    if Item.find(item_id).destroy
+    if Commit.where(item_id: item_id).destroy_all and Item.find(item_id).destroy
       render text: "OK"
     else
       render text: "Object cannot be destroyed!!"
