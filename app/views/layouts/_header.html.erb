@@ -1,7 +1,15 @@
-<div class="hero-unit">
+<div class="hero-unit" style="padding-top: 30px;">
   <h1> !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! !ˆˆ! </h1>
   <div class="muted">
     "El que vive sin disciplina muere sin honor" -
     <a href="https://www.github.com/tille" class="muted">T!ll3</a>
+
+    <% if user_signed_in? %>
+      <div class="navbar">
+        <%= current_user.email %> |
+        <%= link_to "Log out", destroy_user_session_path, :method => :delete, class: "muted" %>
+      </div>
+    <% end %>
+
   </div>
 </div>

@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  attr_accessible :estimated_time, :name
+  attr_accessible :estimated_time, :name, :user_id
 
   validates :name,           :presence => true, :uniqueness => true
   validates :estimated_time, :presence => true, :numericality => true

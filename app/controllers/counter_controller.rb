@@ -2,7 +2,8 @@ class CounterController < ApplicationController
   # before_filter :authenticate_user!
 
   def index
-    @items = Item.all
+    @user  = current_user
+    @items = @user.items
   end
 
   def record_time
@@ -71,13 +72,10 @@ class CounterController < ApplicationController
     end
 
     if @item.save
-      redirect_to '/', notice: "Item was succesfully created!!"
+      redirect_to dashboard_path, notice: "Item was succesfully created!!"
     else
-      redirect_to root_path, alert: @item.errors.full_messages
+      redirect_to dashboard_path, alert: @item.errors.full_messages
     end
-  end
-
-  def commit_time
   end
 
 end

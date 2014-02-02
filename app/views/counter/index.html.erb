@@ -27,16 +27,16 @@
         <div class="span12">
 
           <div class="today-seconds">
-            <%= Item.today_seconds %>
+            <%= @user.today_seconds %>
           </div>
           <div class="week-seconds">
-            <%= Item.week_seconds %>
+            <%= @user.week_seconds %>
           </div>
 
           <h3>
-            Today: <p id="today-time"><%= Item.today_time %></p>
+            Today: <p id="today-time"><%= @user.today_time %></p>
             <p class="muted" style="display: inline;">and</p>
-            This week: <p id="week-time"><%= Item.week_time %></p>
+            This week: <p id="week-time"><%= @user.week_time %></p>
           </h3>
 
         </div>
@@ -77,10 +77,11 @@
       <hr>
       <div class="add-item-form">
         <h4 class="muted">Add a new item</h4>
-        <%= form_for :item, url: "/add_item" do |f| %>
+        <%= form_for :item, url: add_item_path do |f| %>
           <p>
             <%= f.text_field :name, placeholder: "Item name" %>
             <%= f.text_field :estimated_time, placeholder: "Time per week (minutes)" %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
             <%= f.submit "crear", class: "btn btn-inverse create-item-button" %>
           </p>
         <% end %>

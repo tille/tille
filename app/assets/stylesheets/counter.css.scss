@@ -2,13 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+body {
+  font-size: 100%;
+  line-height: 1.6875;
+}
+
 .record {
   cursor:pointer;
   color: green;
 }
 
 .time-info {
-  padding-left: 55px;
+  padding-left: 50px;
   margin-bottom: 40px;
 }
 
@@ -16,6 +21,7 @@
   margin-left: 30px;
   margin-right: 10px;
   display: inline;
+  float: right;
 }
 
 .add-item {
@@ -31,10 +37,6 @@ ul {
   display: none;
   padding: 0px 30px 0px 0px;
   margin: 0px 0px 0px 30px;
-}
-
-.remove-item {
-  float: right;
 }
 
 .stop-record {
@@ -65,4 +67,19 @@ ul {
 
 .create-item-button {
   margin-top: -10px;
+}
+
+@media only screen and (max-width: 400px) {
+  body {
+    font-size: 80%;
+  }
+
+  .time-info {
+    margin-left: -30px;
+    margin-bottom: 20px;
+  }
+
+  .time-info h3 {
+    font-size: 1.5em;
+  }
 }
