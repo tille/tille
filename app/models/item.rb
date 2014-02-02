@@ -1,7 +1,7 @@
 class Item < ActiveRecord::Base
   attr_accessible :estimated_time, :name, :user_id
 
-  validates :name,           :presence => true, :uniqueness => true
+  validates :name,           :presence => true #, :uniqueness => true
   validates :estimated_time, :presence => true, :numericality => true
 
   has_many   :commits
