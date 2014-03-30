@@ -18,12 +18,22 @@ class Item < ActiveRecord::Base
     if minutes+seconds == 0
       hours.to_s + "h"
     elsif seconds == 0
-      '%dh/%dm' % [hours, minutes]
+      '%dh:%dm' % [hours, minutes]
     elsif minutes == 0
-      '%dh/%ds' % [hours, seconds]
+      '%dh:%ds' % [hours, seconds]
     else
-      '%dh/%dm/%ds' % [hours, minutes, seconds]
+      '%dh %dm %ds' % [hours, minutes, seconds]
     end
+  end
+
+  def week_time
+    Item.format_time week_seconds
+  end
+
+  def week_seconds
+    week_begin = DateTime.now.utc.beginning_of_week
+    deadline   = DateTime.now.utc.end_of_week
+    commits.where("begin_time > ? and end_time < ?", week_begin, deadline).sum(:spent_time)
   end
 
   # this method return the time commited today in format #h#m#s
