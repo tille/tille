@@ -9,5 +9,9 @@ Tille::Application.routes.draw do
   post 'remove-item' => 'counter#remove_item'
   post 'add_item'    => 'counter#add_item'
 
+  namespace :free_tracker do
+    resources :tasks
+  end
+
   devise_for :users
 end

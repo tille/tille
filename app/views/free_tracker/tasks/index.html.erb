@@ -1,0 +1,9 @@
+<div class="row-fluid">
+  <div class="container">
+    <h1>Tasks</h1>
+
+    <%= @tasks.each do |task| %>
+      <%= task.name %><br>
+    <% end %>
+  </div>
+</div>
