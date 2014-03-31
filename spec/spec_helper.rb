@@ -35,6 +35,8 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
-  # includes ControllerMacros to serve macros on specs
+  # includes some files required in specs, like login_user macros and default
+  # devise actions.
   config.extend ControllerMacros, :type => :controller
+  config.include Devise::TestHelpers, type: :controller
 end
