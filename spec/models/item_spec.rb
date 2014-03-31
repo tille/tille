@@ -9,11 +9,11 @@ describe Item do
 
   describe "errors on required attributes" do
     it "should be invalid without name" do
-      Item.new.should have(1).error_on(:name)
+      Item.new.should have(1).errors_on(:name)
     end
 
     it "should be invalid without an estimated_time" do
-      Item.new.should have(1).error_on(:estimated_time)
+      Item.new.should have(2).errors_on(:estimated_time)
     end
   end
 
@@ -41,16 +41,16 @@ describe Item do
     end
 
     it "should return an string with format #h/#m/#s" do
-      Item.format_time(3960).should eq('1h/6m')
+      Item.format_time(3960).should eq('1h:6m')
     end
 
     it "should return the time commited today in format #h/#m/#s" do
-      Item.today_time.should eq('0h/1m')
+      Item.today_time.should eq('0h:1m')
     end
 
     it "should return the time commited this week in format #h/#m/#s" do
       FactoryGirl.create(:commit, item_id: item.id)
-      Item.today_time.should eq('0h/2m')
+      Item.today_time.should eq('0h:2m')
     end
   end
 
